@@ -46,22 +46,28 @@ exports.signup = async (req, res) => {
 exports.verifyEmail = async (req, res) => {
     try {
         const user = await User.findOne({ verificationToken: req.params.token });
-        if (!user) return res.status(400).send("<h1>Link Expired</h1>");
+
+        if (!user) {
+            return res.status(400).send("<h1>Link Expired</h1>");
+        }
 
         user.isVerified = true;
         user.verificationToken = undefined;
         await user.save();
 
-        const frontendUrl = process.env.BASE_URL.replace('5000', '5173');
+        // Use the FRONTEND_URL from Vercel Environment Variables
+        const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 
         res.send(`
             <html>
-                <body style="text-align: center; padding-top: 100px; font-family: sans-serif; background-color: #050507; color: white;">
-                    <div style="display: inline-block; padding: 40px; border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 2rem; background: #0d0d12;">
-                        <h1 style="color: #2dd4bf;">Verification Successful!</h1>
-                        <p style="color: #9ca3af;">Testing folder account is now active in AccessLearn DB.</p>
-                        <a href="${frontendUrl}" style="display: inline-block; margin-top: 20px; padding: 12px 24px; background: #14b8a6; color: black; text-decoration: none; border-radius: 12px; font-weight: bold;">Go to Login</a>
-                    </div>
+                <body style="text-align: center; padding-top: 50px; font-family: sans-serif;">
+                    <h1>Email Verified Successfully!</h1>
+                    <p>Redirecting you to login...</p>
+                    <script>
+                        setTimeout(() => {
+                            window.location.href = "${frontendUrl}/auth?verified=true";
+                        }, 3000);
+                    </script>
                 </body>
             </html>
         `);
@@ -69,5 +75,4 @@ exports.verifyEmail = async (req, res) => {
         res.status(500).send("Server Error");
     }
 };
-
 // Keep your existing login logic here...
