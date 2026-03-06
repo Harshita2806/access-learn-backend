@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+
+@theme {
+  --font-main: "Inter", sans-serif;
+  --font-welcome: "Poppins", sans-serif;
+
+  /* Black & Grey Foundation */
+  --color-brand-bg: #050505;         /* Deep Black */
+  --color-brand-card: #0f0f0f;       /* Dark Charcoal */
+  --color-brand-border: #222222;     /* Subtle Grey Border */
+  
+  /* Text */
+  --color-brand-text-main: #ffffff;
+  --color-brand-text-secondary: #a1a1aa;
+
+  /* Moderate Teal Accents */
+  --color-brand-primary: #14b8a6;    /* Teal-500 */
+  --color-brand-primary-dark: #0f766e; /* Teal-700 for button depth */
+}
+
+body {
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-text-main);
+  font-family: var(--font-main);
+  /* Removed large radial teal; keeping it pitch black for focus */
+  background-image: radial-gradient(circle at 50% 0%, #111111 0%, #050505 100%);
+}
+
+/* ========================
+   MINIMALIST GLASS CARDS
+======================== */
+
+.glass-card {
+  background: var(--color-brand-card);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 14px;
+  /* Deep black shadow, no teal glow by default */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  /* Highlighting the border with teal only on hover */
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* ========================
+   MODERATE TEAL BUTTONS
+======================== */
+
+.btn-primary {
+  /* This creates a 3D metallic teal look without being a "flat neon" block */
+  background: linear-gradient(
+    145deg, 
+    #0f766e 0%,    /* Darker Teal */
+    #14b8a6 50%,   /* Moderate Teal */
+    #2dd4bf 100%   /* Slightly Lighter Teal for top-edge light */
+  );
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2); /* Inner light edge */
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(20, 184, 166, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--color-brand-border);
+  color: var(--color-brand-text-grey);
+  padding: 10px 22px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+/* ========================
+   HEADINGS & SMALL ELEMENTS
+======================== */
+
+/* Small badges or labels use the teal */
+.badge-teal {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--color-brand-primary);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  padding: 2px 8px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.gradient-heading {
+  font-family: var(--font-welcome);
+  font-weight: 800;
+  /* From Pure White to a Clear Teal-500 */
+  background: linear-gradient(90deg, #ffffff 30%, #5EEAD4 100%);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ========================
+   INPUTS
+======================== */
+
+.input-dark {
+  background: #0a0a0a;
+  border: 1px solid var(--color-brand-border);
+  color: white;
+  border-radius: 8px;
+  padding: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.input-dark:focus {
+  outline: none;
+  /* Thin teal border on focus */
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 1px var(--color-brand-primary);
+}
+
+/* ========================
+   SCROLLBAR (Minimal)
+======================== */
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-brand-primary); }
+
+@layer base {
+  :root {
+    --font-space: 'Space Grotesk', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+  }
+}
+
+/* Custom classes since you don't have tailwind.config.js */
+.font-display {
+  font-family: var(--font-space);
+}
+
+.font-body {
+  font-family: var(--font-inter);
+}
