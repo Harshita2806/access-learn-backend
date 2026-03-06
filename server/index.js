@@ -16,11 +16,14 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use('/api/auth', require('./routes/authRoutes'));
 
-// Only listen to a port if running locally, not on Vercel
+// Add a test route to confirm the 404 is gone
+app.get("/", (req, res) => res.send("AccessLearn Backend is Live!"));
+
+// ONLY start the listener if we are NOT on Vercel
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
 
-// CRITICAL: Vercel needs this export
+// CRITICAL FOR VERCEL
 module.exports = app;
