@@ -3,15 +3,19 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
+// Load env locally
 if (process.env.NODE_ENV !== "production") {
     dotenv.config();
 }
 
 const app = express();
 
-// ===== CORS (OPEN FOR DEBUGGING) =====
-app.use(cors());
-app.options("/*", cors());
+// ===== CORS =====
+app.use(cors({
+    origin: ["http://localhost:5173", process.env.FRONTEND_URL],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 
 // ===== MIDDLEWARE =====
 app.use(express.json());
