@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from '../config';
+import { API_BASE_URL } from '../config.js';
 
 import s1 from "../assets/s1.png";
 import s2 from "../assets/s2.png";
