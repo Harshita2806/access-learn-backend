@@ -1,30 +1,24 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const authRoutes = require("../routes/authRoutes");
 
 const app = express();
 
-// ===== CORS =====
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
+app.use(cors());
 app.use(express.json());
 
-// ===== DB =====
+// MongoDB connection
 let isConnected = false;
 
 async function connectDB() {
     if (isConnected) return;
 
     await mongoose.connect(process.env.MONGO_URI);
-
     isConnected = true;
-    console.log("MongoDB Connected");
+
+    console.log("MongoDB connected");
 }
 
 app.use(async (req, res, next) => {
@@ -32,11 +26,11 @@ app.use(async (req, res, next) => {
     next();
 });
 
-// ===== ROUTES =====
+// Routes
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
-    res.json({ message: "Backend working 🚀" });
+    res.send("Backend running 🚀");
 });
 
 module.exports = app;
